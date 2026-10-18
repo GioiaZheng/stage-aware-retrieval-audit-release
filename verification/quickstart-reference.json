@@ -1,0 +1,58 @@
+{
+  "analysis": [
+    {
+      "candidate_absent_top100": 72,
+      "candidate_partition_reconciles": true,
+      "candidate_present_top100": 251,
+      "categories": {
+        "depth_recoverable_101_1000": 24,
+        "reachable_top10": 218,
+        "reranker_reachable_11_100": 33,
+        "residual_miss_top1000": 48
+      },
+      "dataset": "nfcorpus",
+      "dataset_id": "beir/nfcorpus/test",
+      "partition_covers_all_queries": true,
+      "partition_sum": 323,
+      "positive_qrel_count": 12334,
+      "query_count": 323,
+      "relevance_threshold": 1,
+      "reranked_candidate_set_mismatches": 0
+    },
+    {
+      "candidate_absent_top100": 35,
+      "candidate_partition_reconciles": true,
+      "candidate_present_top100": 265,
+      "categories": {
+        "depth_recoverable_101_1000": 24,
+        "reachable_top10": 239,
+        "reranker_reachable_11_100": 26,
+        "residual_miss_top1000": 11
+      },
+      "dataset": "scifact",
+      "dataset_id": "beir/scifact/test",
+      "partition_covers_all_queries": true,
+      "partition_sum": 300,
+      "positive_qrel_count": 339,
+      "query_count": 300,
+      "relevance_threshold": 1,
+      "requested_queries": [
+        {
+          "category": "depth_recoverable_101_1000",
+          "first_relevant_rank": 170,
+          "positive_qrel_count": 1,
+          "query_id": "13",
+          "relevant_candidate_present_top100": false,
+          "reranked_candidate_set_matches_bm25_top100": true
+        }
+      ],
+      "reranked_candidate_set_mismatches": 0
+    }
+  ],
+  "bundle": {
+    "sha256": "15e8e4ded1fe8d889e24a31f7794988ce0bbb6750c5f9b10e1d7dd4b38a5f633",
+    "sha256_matches": true,
+    "url": "https://github.com/GioiaZheng/msmarco-genqa/releases/download/v2.2-beir-cross-domain-baselines/beir-cross-domain-baselines-v1.zip"
+  },
+  "schema": "ecir-usability-quickstart.v1"
+}

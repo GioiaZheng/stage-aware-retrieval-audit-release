@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this resource, please cite it using the metadata below."
+type: software
+title: "Stage-Aware Retrieval Audit"
+authors:
+  - family-names: "Zheng"
+    given-names: "Gioia"
+license: Apache-2.0
+version: 0.1.0
+repository-code: "https://github.com/GioiaZheng/stage-aware-retrieval-audit"
+url: "https://ecir-2027-resource-paper-5rly9kszw8zf6rfbxfuvaz.streamlit.app/"

@@ -1,0 +1,183 @@
+{
+  "all_expected_metrics_within_tolerance": true,
+  "comparisons": [
+    {
+      "bm25_ce_minus_bm25": {
+        "mrr@10": 0.04760921912624694,
+        "ndcg@10": 0.03472203685747555,
+        "recall@100": 0.0
+      },
+      "candidate_recall_unchanged": true,
+      "dataset": "nfcorpus",
+      "early_ranking_improves": true,
+      "query_count": 323
+    },
+    {
+      "bm25_ce_minus_bm25": {
+        "mrr@10": 0.020490740740740643,
+        "ndcg@10": 0.0169600621451772,
+        "recall@100": 0.0
+      },
+      "candidate_recall_unchanged": true,
+      "dataset": "scifact",
+      "early_ranking_improves": true,
+      "query_count": 300
+    }
+  ],
+  "manifest_sha256": "4f9a403e5c14b5afa0ff8175edce63287b89a77df320803829c8f55011a02dbc",
+  "metric_contract": {
+    "binary_relevance_threshold": 1,
+    "mrr": "reciprocal rank of first relevant document at rank <= 10",
+    "ndcg": "raw non-negative graded labels with log2 rank discount",
+    "recall": "macro mean of per-query relevant-document recall",
+    "tolerance": 1e-12,
+    "topic_scope": "all_qrels_topics"
+  },
+  "results": [
+    {
+      "absolute_deltas": {
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0,
+        "recall@100": 0.0,
+        "recall@1000": 0.0
+      },
+      "dataset": "nfcorpus",
+      "dataset_id": "beir/nfcorpus/test",
+      "expected_metrics": {
+        "mrr@10": 0.5186041083099907,
+        "ndcg@10": 0.30640715529625967,
+        "recall@100": 0.23775575921008424,
+        "recall@1000": 0.4572325663968621
+      },
+      "extra_run_topic_count": 0,
+      "max_absolute_delta": 0.0,
+      "max_depth": 1000,
+      "metrics": {
+        "mrr@10": 0.5186041083099907,
+        "ndcg@10": 0.30640715529625967,
+        "recall@100": 0.23775575921008424,
+        "recall@1000": 0.4572325663968621
+      },
+      "missing_run_topic_count": 0,
+      "no_hit_queries": {
+        "at_100": 72,
+        "at_1000": 48
+      },
+      "positive_qrel_count": 12334,
+      "query_count": 323,
+      "run_path": "runs/beir_nfcorpus_bm25.tsv",
+      "run_query_count": 323,
+      "run_sha256": "4ad5eaa880db0d1fa4f1c9e34370d71e861ec2a0e4b88b3738918de1e273f30a",
+      "system": "bm25",
+      "within_tolerance": true
+    },
+    {
+      "absolute_deltas": {
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0,
+        "recall@100": 0.0
+      },
+      "dataset": "nfcorpus",
+      "dataset_id": "beir/nfcorpus/test",
+      "expected_metrics": {
+        "mrr@10": 0.5662133274362376,
+        "ndcg@10": 0.3411291921537352,
+        "recall@100": 0.23775575921008424
+      },
+      "extra_run_topic_count": 0,
+      "max_absolute_delta": 0.0,
+      "max_depth": 100,
+      "metrics": {
+        "mrr@10": 0.5662133274362376,
+        "ndcg@10": 0.3411291921537352,
+        "recall@100": 0.23775575921008424,
+        "recall@1000": 0.23775575921008424
+      },
+      "missing_run_topic_count": 0,
+      "no_hit_queries": {
+        "at_100": 72,
+        "at_1000": 72
+      },
+      "positive_qrel_count": 12334,
+      "query_count": 323,
+      "run_path": "runs/beir_nfcorpus_bm25_ce.tsv",
+      "run_query_count": 323,
+      "run_sha256": "0ba549fa223b9af485a77f86dee580e66468867e8da32229936c2979e3e68158",
+      "system": "bm25_ce",
+      "within_tolerance": true
+    },
+    {
+      "absolute_deltas": {
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0,
+        "recall@100": 0.0,
+        "recall@1000": 0.0
+      },
+      "dataset": "scifact",
+      "dataset_id": "beir/scifact/test",
+      "expected_metrics": {
+        "mrr@10": 0.6312301587301588,
+        "ndcg@10": 0.6616913885341652,
+        "recall@100": 0.8758888888888888,
+        "recall@1000": 0.9605555555555556
+      },
+      "extra_run_topic_count": 0,
+      "max_absolute_delta": 0.0,
+      "max_depth": 1000,
+      "metrics": {
+        "mrr@10": 0.6312301587301588,
+        "ndcg@10": 0.6616913885341652,
+        "recall@100": 0.8758888888888888,
+        "recall@1000": 0.9605555555555556
+      },
+      "missing_run_topic_count": 0,
+      "no_hit_queries": {
+        "at_100": 35,
+        "at_1000": 11
+      },
+      "positive_qrel_count": 339,
+      "query_count": 300,
+      "run_path": "runs/beir_scifact_bm25.tsv",
+      "run_query_count": 300,
+      "run_sha256": "ae5d1f01a950327df540e2490b03335852e88405fd35ce27b3490eb5642cce8c",
+      "system": "bm25",
+      "within_tolerance": true
+    },
+    {
+      "absolute_deltas": {
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0,
+        "recall@100": 0.0
+      },
+      "dataset": "scifact",
+      "dataset_id": "beir/scifact/test",
+      "expected_metrics": {
+        "mrr@10": 0.6517208994708994,
+        "ndcg@10": 0.6786514506793424,
+        "recall@100": 0.8758888888888888
+      },
+      "extra_run_topic_count": 0,
+      "max_absolute_delta": 0.0,
+      "max_depth": 100,
+      "metrics": {
+        "mrr@10": 0.6517208994708994,
+        "ndcg@10": 0.6786514506793424,
+        "recall@100": 0.8758888888888888,
+        "recall@1000": 0.8758888888888888
+      },
+      "missing_run_topic_count": 0,
+      "no_hit_queries": {
+        "at_100": 35,
+        "at_1000": 35
+      },
+      "positive_qrel_count": 339,
+      "query_count": 300,
+      "run_path": "runs/beir_scifact_bm25_ce.tsv",
+      "run_query_count": 300,
+      "run_sha256": "dec4f2ba1d0b19936d38e21a3f3ccdeaed96ba7ebbe429fb6755778d693ebe82",
+      "system": "bm25_ce",
+      "within_tolerance": true
+    }
+  ],
+  "schema": "ecir-beir-metric-recomputation.v1"
+}

@@ -1,0 +1,2 @@
+streamlit==1.65.0
+ir_datasets==0.6.1
