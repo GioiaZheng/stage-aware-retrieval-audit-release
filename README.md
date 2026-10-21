@@ -5,7 +5,7 @@ two-stage retrieval pipeline. It checks where the first judged-relevant
 document appears in a frozen BM25 run and whether that document is available
 to a reranker restricted to the top 100 candidates.
 
-[![Quality checks](https://github.com/GioiaZheng/stage-aware-retrieval-audit/actions/workflows/quality.yml/badge.svg)](https://github.com/GioiaZheng/stage-aware-retrieval-audit/actions/workflows/quality.yml)
+[![Quality checks](https://github.com/GioiaZheng/stage-aware-retrieval-audit-release/actions/workflows/quality.yml/badge.svg)](https://github.com/GioiaZheng/stage-aware-retrieval-audit-release/actions/workflows/quality.yml)
 
 The current evidence covers the public BEIR NFCorpus and SciFact test sets. The
 four reported locations are operational pipeline outcomes, not semantic
@@ -81,5 +81,5 @@ benchmark judgments through `ir_datasets` and download a pinned run archive
 from an external release. Those external resources remain subject to their own
 terms and are not relicensed here.
 
-This is a private staging copy. The external run archive remains at its
-original release URL and is not redistributed by this repository.
+The pinned external run archive remains at its original release URL and is not
+redistributed by this repository.

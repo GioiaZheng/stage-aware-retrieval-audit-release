@@ -7,5 +7,5 @@ authors:
     given-names: "Gioia"
 license: Apache-2.0
 version: 0.1.0
-repository-code: "https://github.com/GioiaZheng/stage-aware-retrieval-audit"
-url: "https://ecir-2027-resource-paper-5rly9kszw8zf6rfbxfuvaz.streamlit.app/"
+repository-code: "https://github.com/GioiaZheng/stage-aware-retrieval-audit-release"
+url: "https://github.com/GioiaZheng/stage-aware-retrieval-audit-release"

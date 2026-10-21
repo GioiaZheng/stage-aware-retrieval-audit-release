@@ -76,6 +76,9 @@ class ReleaseCandidateTests(unittest.TestCase):
         self.assertTrue(query["reranked_candidate_set_matches_bm25_top100"])
 
     def test_release_metadata_is_present(self) -> None:
+        repository_url = (
+            "https://github.com/GioiaZheng/stage-aware-retrieval-audit-release"
+        )
         required = [
             "LICENSE",
             "LICENSE-DOCUMENTATION.md",
@@ -91,6 +94,15 @@ class ReleaseCandidateTests(unittest.TestCase):
         self.assertIn("cff-version: 1.2.0", citation)
         self.assertIn("family-names: \"Zheng\"", citation)
         self.assertIn("license: Apache-2.0", citation)
+        self.assertIn(f'repository-code: "{repository_url}"', citation)
+        self.assertIn(f'url: "{repository_url}"', citation)
+        self.assertNotIn("streamlit.app", citation)
+
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        quality_url = f"{repository_url}/actions/workflows/quality.yml"
+        self.assertIn(f"{quality_url}/badge.svg", readme)
+        self.assertIn(f"]({quality_url})", readme)
+        self.assertNotIn("This is a private staging copy", readme)
 
     def test_scifact_attribution_is_visible(self) -> None:
         for relative in ["THIRD_PARTY.md", "verification/web_app.py"]:
