@@ -44,10 +44,10 @@ title and abstract excerpt at runtime. Under the
 [SciFact license](https://github.com/allenai/scifact/blob/a5254a1bf108726a1704d8e191b8a7f2225a029f/LICENSE.md),
 claims and evidence annotations are CC BY 4.0, while corpus abstracts from
 S2ORC are ODC-By 1.0. The release-candidate application source includes this
-attribution beside the example; deployment of that source revision is a
-separate release step. Any downloaded verification export that retains the
-example text includes the corresponding source-license metadata, remains
-subject to those source terms, and is not relicensed by this repository.
+attribution beside the example. The deployed response-free interface presents
+the same attribution and includes the corresponding source-license metadata in
+any downloaded verification export that retains the example text. That text
+remains subject to the source terms and is not relicensed by this repository.
 
 ## License boundary
 

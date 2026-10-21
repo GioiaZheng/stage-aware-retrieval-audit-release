@@ -79,6 +79,7 @@ class ReleaseCandidateTests(unittest.TestCase):
         repository_url = (
             "https://github.com/GioiaZheng/stage-aware-retrieval-audit-release"
         )
+        browser_url = "https://stage-aware-retrieval-audit.streamlit.app/"
         required = [
             "LICENSE",
             "LICENSE-DOCUMENTATION.md",
@@ -95,13 +96,13 @@ class ReleaseCandidateTests(unittest.TestCase):
         self.assertIn("family-names: \"Zheng\"", citation)
         self.assertIn("license: Apache-2.0", citation)
         self.assertIn(f'repository-code: "{repository_url}"', citation)
-        self.assertIn(f'url: "{repository_url}"', citation)
-        self.assertNotIn("streamlit.app", citation)
+        self.assertIn(f'url: "{browser_url}"', citation)
 
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         quality_url = f"{repository_url}/actions/workflows/quality.yml"
         self.assertIn(f"{quality_url}/badge.svg", readme)
         self.assertIn(f"]({quality_url})", readme)
+        self.assertIn(browser_url, readme)
         self.assertNotIn("This is a private staging copy", readme)
 
     def test_scifact_attribution_is_visible(self) -> None:

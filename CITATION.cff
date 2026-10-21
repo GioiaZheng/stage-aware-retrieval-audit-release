@@ -8,4 +8,4 @@ authors:
 license: Apache-2.0
 version: 0.1.0
 repository-code: "https://github.com/GioiaZheng/stage-aware-retrieval-audit-release"
-url: "https://github.com/GioiaZheng/stage-aware-retrieval-audit-release"
+url: "https://stage-aware-retrieval-audit.streamlit.app/"

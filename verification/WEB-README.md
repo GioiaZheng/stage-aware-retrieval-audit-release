@@ -39,7 +39,11 @@ run.
 The deployment entry point is `verification/web_app.py`, with dependencies in
 `verification/requirements.txt`.
 
-This exact response-free source revision has not yet been deployed. The
-previously used URL serves a legacy interface and is intentionally not
-advertised by this release candidate. A hosted URL may be added only after an
-approved deployment and fresh production verification.
+The response-free interface is deployed at
+<https://stage-aware-retrieval-audit.streamlit.app/>. An author-run production
+check against release commit `fbc5e7f54512a448089c72391c89b84b15726e8d`
+completed successfully on 21 October 2026. The check and its evidence limits
+are recorded in `docs/TECHNICAL_ACCESS_VERIFICATION.md`.
+
+The earlier pilot URL serves a legacy interface and is intentionally not
+advertised by this release candidate.

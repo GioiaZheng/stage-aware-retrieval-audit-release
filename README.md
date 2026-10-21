@@ -49,16 +49,14 @@ Windows PowerShell commands and the expected output fields are documented in
 
 ## Browser interface
 
-Its source is `verification/web_app.py`. The page reruns extraction, qrels
-loading, category computation, and the fixed-query assignment. It contains no
-response fields and its optional download contains only the machine-readable
-verification result. The author-run deployment checks and their evidence
-boundary are documented in
+The response-free browser interface is available at
+<https://stage-aware-retrieval-audit.streamlit.app/>. Its source is
+`verification/web_app.py`. The page reruns extraction, qrels loading, category
+computation, and the fixed-query assignment. It contains no response fields
+and its optional download contains only the machine-readable verification
+result. The author-run deployment checks and their evidence boundary are
+documented in
 [`docs/TECHNICAL_ACCESS_VERIFICATION.md`](docs/TECHNICAL_ACCESS_VERIFICATION.md).
-
-This exact response-free source revision has not yet been deployed. A hosted
-URL will be added only after an approved deployment and a fresh check against
-the exact release candidate.
 
 ## Verification scope
 
