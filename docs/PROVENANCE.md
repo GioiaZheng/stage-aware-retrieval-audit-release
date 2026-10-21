@@ -24,8 +24,8 @@ recorded in `verification/run_usability_quickstart.py`. The archive manifest
 then supplies a separate SHA-256 digest for every member. Metric recomputation
 checks the run files against that manifest before evaluating them.
 
-The release-candidate Quick Start was run from a clean work directory on
-2026-10-14. Its retained output is
+The release Quick Start was run from a clean work directory on 2026-10-21.
+Its retained output is
 `verification/quickstart-reference.json`; the verification record and output
 digest are in `docs/RELEASE_VERIFICATION.md`.
 

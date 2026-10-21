@@ -67,7 +67,7 @@ recomputation, and the stated category partition for the pinned artifacts.
 They do not establish statistical significance, generation quality, semantic
 root causes, or completeness of relevance judgments.
 
-The clean staging run is recorded in
+The clean release verification run is recorded in
 [`docs/RELEASE_VERIFICATION.md`](docs/RELEASE_VERIFICATION.md), with its
 machine-readable output retained as
 [`verification/quickstart-reference.json`](verification/quickstart-reference.json).

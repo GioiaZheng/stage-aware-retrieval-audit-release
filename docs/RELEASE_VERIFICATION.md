@@ -1,11 +1,12 @@
-# Release-Candidate Verification
+# Release Verification
 
-Date: 2026-10-14
+Date: 2026-10-21
 
-The Quick Start was executed from this clean staging repository with a new
-`audit-work` directory and Python 3.12. Without source-repository checkout or
-credentials, the workflow downloaded the pinned ranked-run archive and the
-public NFCorpus and SciFact resources.
+The complete documented workflow was executed from a clean release-candidate
+checkout with a new work directory, an isolated Python 3.12 environment, and
+`ir_datasets==0.6.1`. Without a source-repository checkout or credentials, the
+workflow downloaded the pinned ranked-run archive and the public NFCorpus and
+SciFact resources.
 
 The following checks passed:
 
@@ -16,7 +17,10 @@ The following checks passed:
 - the BM25 top-100 candidate sets matched the reranked candidate sets for every
   query; and
 - SciFact query 13 was assigned to `depth_recoverable_101_1000`, with its first
-  judged-relevant document at BM25 rank 170.
+  judged-relevant document at BM25 rank 170;
+- the newly generated 1,860-byte JSON output matched
+  `verification/quickstart-reference.json` byte for byte; and
+- all ten release invariants in `tests/test_release_candidate.py` passed.
 
 The retained output is `verification/quickstart-reference.json`, with SHA-256:
 
@@ -27,5 +31,6 @@ The retained output is `verification/quickstart-reference.json`, with SHA-256:
 Its category counts and candidate-set mismatch counts match
 `verification/category-recomputation.json`.
 
-This verifies the staged access path and computation. It does not verify every
-future host environment or guarantee continued availability of external URLs.
+This verifies the documented access path and computation. It does not verify
+every future host environment or guarantee continued availability of external
+URLs.
