@@ -39,6 +39,12 @@ The verification scripts use `ir_datasets` to obtain public NFCorpus and
 SciFact resources. No copy of those resources is committed here. Users are
 responsible for observing the applicable upstream dataset terms.
 
+The [official NFCorpus Terms of Use](https://www.cl.uni-heidelberg.de/statnlpgroup/nfcorpus/#terms-of-use)
+state that NFCorpus is free to use for academic purposes and direct other uses
+of the included NutritionFacts.org data to that site's terms and its author.
+This repository neither copies NFCorpus nor treats those terms as an
+asset-specific license for the external ranked-run ZIPs.
+
 The browser's worked example loads SciFact query text and a relevant-document
 title and abstract excerpt at runtime. Under the
 [SciFact license](https://github.com/allenai/scifact/blob/a5254a1bf108726a1704d8e191b8a7f2225a029f/LICENSE.md),
