@@ -22,7 +22,8 @@ explanations of why a query is difficult:
   recomputation scripts;
 - a one-command quick start that downloads a pinned ranked-run bundle;
 - SHA-256 verification before computation;
-- machine-readable recomputation outputs; and
+- machine-readable aggregate outputs plus JSON and CSV records for all 623
+  audited queries; and
 - an optional Streamlit interface for people who do not use a terminal.
 
 The repository does not contain benchmark corpora, query text, qrels copies,
@@ -62,6 +63,10 @@ documented in
 
 The retained reports establish archive integrity, ranked-run structure, metric
 recomputation, and the stated category partition for the pinned artifacts.
+The category entry point checks the complete qrels-topic population, run
+structure and depth, positive-judgment precondition, and top-100 candidate-set
+equality before producing a valid partition; contract violations terminate the
+audit with a non-zero status.
 They do not establish statistical significance, generation quality, semantic
 root causes, or completeness of relevance judgments.
 
@@ -69,11 +74,15 @@ The clean release verification run is recorded in
 [`docs/RELEASE_VERIFICATION.md`](docs/RELEASE_VERIFICATION.md), with its
 machine-readable output retained as
 [`verification/quickstart-reference.json`](verification/quickstart-reference.json).
+The per-query schema, input fingerprints, file hashes, and regeneration command
+are documented in [`verification/QUERY-AUDIT.md`](verification/QUERY-AUDIT.md).
 
 ## Data and licensing boundary
 
-The original software is licensed under Apache-2.0. Original documentation and
-aggregate results are licensed under CC BY 4.0; see
+The original software is licensed under Apache-2.0. Original documentation,
+aggregate verification results, and the separately versioned 623-row JSON/CSV
+audit tables are licensed under CC BY 4.0, subject to the third-party boundary
+below; see
 [`LICENSE-DOCUMENTATION.md`](LICENSE-DOCUMENTATION.md). The scripts load public
 benchmark judgments through `ir_datasets` and download a pinned run archive
 from an external release. Those external resources remain subject to their own

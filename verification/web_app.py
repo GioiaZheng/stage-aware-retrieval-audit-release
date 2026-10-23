@@ -16,9 +16,10 @@ from run_usability_quickstart import (
     safe_extract,
     sha256,
 )
+from web_runtime import AUDIT_LOCK
 
 
-APP_VERSION = "web-audit-v1"
+APP_VERSION = "web-audit-v2"
 FIXED_QUERY = "scifact:13"
 DOCUMENT_EXCERPT_LENGTH = 600
 SCIFACT_LICENSE_URL = (
@@ -69,7 +70,13 @@ def fixed_query_context(dataset_id: str, qid: str) -> dict[str, object]:
 
 
 def run_public_audit(cache_root: str) -> dict[str, object]:
-    """Download public inputs as needed and recompute the audit per session."""
+    """Serialize access to the shared download, extraction, and dataset cache."""
+    with AUDIT_LOCK:
+        return _run_public_audit_locked(cache_root)
+
+
+def _run_public_audit_locked(cache_root: str) -> dict[str, object]:
+    """Download public inputs as needed and recompute one complete audit."""
     root = Path(cache_root)
     archive = root / "downloads" / "beir-cross-domain-baselines-v1.zip"
     extracted = root / "extracted"
@@ -87,17 +94,16 @@ def run_public_audit(cache_root: str) -> dict[str, object]:
     safe_extract(archive, extracted)
     os.environ["IR_DATASETS_HOME"] = str(dataset_cache)
 
-    from recompute_stage_categories import DATASETS, evaluate
+    from export_query_audit import build_payload
+    from recompute_stage_categories import DATASETS
 
     dataset_name, qid = FIXED_QUERY.split(":", 1)
     run_dir = extracted / "runs"
-    analysis = [
-        evaluate(name, run_dir, {qid} if name == dataset_name else None)
-        for name in DATASETS
-    ]
+    query_audit = build_payload(run_dir)
+    analysis = [dataset["aggregate"] for dataset in query_audit["datasets"]]
     context = fixed_query_context(str(DATASETS[dataset_name]["dataset_id"]), qid)
     return {
-        "schema": "ecir-web-audit-result.v1",
+        "schema": "ecir-web-audit-result.v2",
         "app_version": APP_VERSION,
         "bundle": {
             "url": BUNDLE_URL,
@@ -105,6 +111,7 @@ def run_public_audit(cache_root: str) -> dict[str, object]:
             "sha256_matches": True,
         },
         "analysis": analysis,
+        "query_audit": query_audit,
         "fixed_query_context": context,
     }
 
@@ -129,17 +136,21 @@ def category_rows(result: dict[str, object]) -> list[dict[str, object]]:
 
 
 def requested_query(result: dict[str, object]) -> dict[str, object]:
-    for dataset in result["analysis"]:  # type: ignore[index]
-        requested = dataset.get("requested_queries", [])
-        if requested:
-            return requested[0]
+    dataset_name, qid = FIXED_QUERY.split(":", 1)
+    query_audit = result["query_audit"]  # type: ignore[index]
+    for dataset in query_audit["datasets"]:
+        if dataset["dataset"] != dataset_name:
+            continue
+        for record in dataset["records"]:
+            if record["query_id"] == qid:
+                return record
     raise ValueError("Fixed query result is missing")
 
 
 def build_export(result: dict[str, object]) -> bytes:
     """Serialize public verification output without collecting user data."""
     export = {
-        "schema": "ecir-web-audit-export.v1",
+        "schema": "ecir-web-audit-export.v2",
         "app_version": APP_VERSION,
         "third_party": {
             "scifact": {
@@ -188,7 +199,7 @@ st.markdown(
     1. Click **Run public audit**. The page will download public result files,
        check that they are unchanged, and calculate the result.
     2. Read the displayed query, judged-relevant document, and rank information.
-    3. Optionally download the machine-readable verification result.
+    3. Inspect or download records produced by that same computation.
 
     The page does not ask for responses, a name, contact details, device details,
     or an account identifier, and it does not ask you to send anything back.
@@ -241,7 +252,7 @@ if st.button("Run public audit", type="primary"):
         with st.status("Running the public audit…", expanded=True) as status:
             st.write("Downloading and verifying the frozen run bundle")
             st.write("Loading public NFCorpus and SciFact relevance judgments")
-            st.write("Recomputing the query partition and fixed-query assignment")
+            st.write("Recomputing all 623 query assignments and input fingerprints")
             st.session_state.audit_result = run_public_audit(cache_root)
             status.update(label="Audit complete", state="complete", expanded=False)
     except Exception as error:  # Surface a useful technical error in the UI.
@@ -268,6 +279,49 @@ if "audit_result" in st.session_state:
 
     st.markdown("#### Query partition")
     st.table(category_rows(result))
+
+    from export_query_audit import (
+        records_for_category,
+        render_csv,
+        render_record_selection_csv,
+    )
+
+    query_audit = result["query_audit"]
+    depth_records = records_for_category(
+        query_audit, "depth_recoverable_101_1000"
+    )
+    st.markdown("#### Depth-recoverable follow-up list")
+    st.write(
+        f"The current computation found {len(depth_records)} queries whose "
+        "first judged-relevant document occurs at ranks 101–1000. The table "
+        "identifies the query, document, and rank for candidate-depth review."
+    )
+    st.dataframe(
+        [
+            {
+                "Dataset": row["dataset"],
+                "Query ID": row["query_id"],
+                "First relevant document": row["first_relevant_doc_id"],
+                "BM25 rank": row["first_relevant_rank"],
+            }
+            for row in depth_records
+        ],
+        hide_index=True,
+        use_container_width=True,
+    )
+
+    st.download_button(
+        "Download all 623 query records (CSV)",
+        data=render_csv(query_audit).encode("utf-8"),
+        file_name="query-audit-records.csv",
+        mime="text/csv",
+    )
+    st.download_button(
+        "Download depth-recoverable follow-up list (CSV)",
+        data=render_record_selection_csv(depth_records).encode("utf-8"),
+        file_name="depth-recoverable-queries.csv",
+        mime="text/csv",
+    )
 
     query = requested_query(result)
     context = result["fixed_query_context"]
@@ -301,7 +355,7 @@ if "audit_result" in st.session_state:
 
     export = build_export(result)
     st.download_button(
-        "Download verification result",
+        "Download complete verification result (JSON)",
         data=export,
         file_name="ecir-web-audit-result.json",
         mime="application/json",

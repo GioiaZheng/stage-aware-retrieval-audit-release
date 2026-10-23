@@ -51,6 +51,12 @@ The command prints JSON and saves the same content to
 3. `reranked_candidate_set_mismatches` for each dataset;
 4. the requested query's `category` and `first_relevant_rank`.
 
+The audit is fail-closed. It exits with a non-zero status and does not emit a
+valid result if a qrels topic is missing from either run, a run contains an
+extra topic, a qrels topic has no positive judgment at the declared threshold,
+rank structure or depth is invalid, a query repeats a document, or a reranked
+candidate set differs from the corresponding BM25 top 100.
+
 ## Clean-run rule
 
 For a clean rerun, `audit-work` must not already exist. The directory is created
@@ -84,3 +90,19 @@ From Windows PowerShell, run:
 The command checks every member digest and the TREC field, row-count,
 query-count, rank-contiguity, depth, and duplicate-document contracts. It
 should finish with `Validated 14 ranked-run files.`
+
+## Export all query records
+
+To generate the separate JSON and CSV audit tables from the validated BEIR run
+directory, run:
+
+```powershell
+.\.venv-audit\Scripts\python.exe verification\export_query_audit.py `
+  --run-dir audit-work\extracted\runs `
+  --json-output verification\query-audit-records.json `
+  --csv-output verification\query-audit-records.csv
+```
+
+The retained file identifiers and schema are documented in
+[`QUERY-AUDIT.md`](QUERY-AUDIT.md). The original aggregate JSON schema and
+retained hashes remain unchanged.

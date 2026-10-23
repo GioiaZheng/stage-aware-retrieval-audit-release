@@ -7,6 +7,8 @@ import hashlib
 import json
 import os
 import sys
+import tempfile
+import threading
 import urllib.request
 import zipfile
 from pathlib import Path
@@ -17,6 +19,7 @@ BUNDLE_URL = (
     "v2.2-beir-cross-domain-baselines/beir-cross-domain-baselines-v1.zip"
 )
 BUNDLE_SHA256 = "15e8e4ded1fe8d889e24a31f7794988ce0bbb6750c5f9b10e1d7dd4b38a5f633"
+_DOWNLOAD_PUBLISH_LOCK = threading.Lock()
 
 
 def sha256(path: Path) -> str:
@@ -29,11 +32,25 @@ def sha256(path: Path) -> str:
 
 def download(url: str, destination: Path) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
-    temporary = destination.with_suffix(destination.suffix + ".part")
-    with urllib.request.urlopen(url) as response, temporary.open("wb") as output:
-        while chunk := response.read(1024 * 1024):
-            output.write(chunk)
-    temporary.replace(destination)
+    temporary: Path | None = None
+    try:
+        with urllib.request.urlopen(url) as response:
+            with tempfile.NamedTemporaryFile(
+                mode="wb",
+                dir=destination.parent,
+                prefix=f"{destination.name}.",
+                suffix=".part",
+                delete=False,
+            ) as output:
+                temporary = Path(output.name)
+                while chunk := response.read(1024 * 1024):
+                    output.write(chunk)
+        with _DOWNLOAD_PUBLISH_LOCK:
+            if not destination.exists():
+                temporary.replace(destination)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def safe_extract(archive: Path, destination: Path) -> None:
