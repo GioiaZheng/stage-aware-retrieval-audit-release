@@ -1,9 +1,9 @@
 # Stage-Aware Retrieval Audit
 
-This repository is a release candidate for a small, reproducible audit of a
-two-stage retrieval pipeline. It checks where the first judged-relevant
-document appears in a frozen BM25 run and whether that document is available
-to a reranker restricted to the top 100 candidates.
+This repository provides the versioned `v0.2.1` release of a small,
+reproducible audit of a two-stage retrieval pipeline. It checks where the first
+judged-relevant document appears in a frozen BM25 run and whether that document
+is available to a reranker restricted to the top 100 candidates.
 
 [![Quality checks](https://github.com/GioiaZheng/stage-aware-retrieval-audit-release/actions/workflows/quality.yml/badge.svg)](https://github.com/GioiaZheng/stage-aware-retrieval-audit-release/actions/workflows/quality.yml)
 
