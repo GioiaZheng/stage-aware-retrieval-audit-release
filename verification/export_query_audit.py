@@ -10,15 +10,15 @@ import json
 from collections import Counter
 from importlib.metadata import version
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 import ir_datasets
 
-from recompute_stage_categories import DATASETS, evaluate
+from recompute_stage_categories import DEFAULT_DATASETS, DATASETS, evaluate
 
 
 SCHEMA = "ecir-query-audit-records.v1"
-VERIFIER_VERSION = "0.2.1"
+VERIFIER_VERSION = "0.2.2"
 CSV_FIELDS = [
     "dataset",
     "query_id",
@@ -106,10 +106,21 @@ def validate_records(
             raise ValueError("valid query record contains a candidate-set mismatch")
 
 
-def build_payload(run_dir: Path) -> dict[str, Any]:
+def build_payload(
+    run_dir: Path,
+    dataset_names: Iterable[str] = DEFAULT_DATASETS,
+) -> dict[str, Any]:
     datasets = []
     total_records = 0
-    for name, spec in DATASETS.items():
+    selected_datasets = list(dict.fromkeys(dataset_names))
+    if not selected_datasets:
+        raise ValueError("at least one dataset must be selected")
+    unknown = [name for name in selected_datasets if name not in DATASETS]
+    if unknown:
+        raise ValueError(f"unknown datasets: {unknown}")
+
+    for name in selected_datasets:
+        spec = DATASETS[name]
         evaluated = evaluate(name, run_dir, include_query_records=True)
         records = list(evaluated.pop("query_records"))
         validate_records(records, evaluated)
@@ -130,9 +141,9 @@ def build_payload(run_dir: Path) -> dict[str, Any]:
                         reranked_path, int(spec["reranked_depth"])
                     ),
                     "qrels": qrels_binding(dataset_id),
-                    "relevance_threshold": 1,
-                    "candidate_cutoff": 100,
-                    "first_stage_depth": 1000,
+                    "relevance_threshold": int(spec["relevance_threshold"]),
+                    "candidate_cutoff": int(spec["reranked_depth"]),
+                    "first_stage_depth": int(spec["bm25_depth"]),
                 },
                 "aggregate": evaluated,
                 "records": records,
@@ -207,10 +218,23 @@ def main() -> None:
     parser.add_argument("--run-dir", required=True, type=Path)
     parser.add_argument("--json-output", required=True, type=Path)
     parser.add_argument("--csv-output", required=True, type=Path)
+    parser.add_argument(
+        "--dataset",
+        action="append",
+        choices=tuple(DATASETS),
+        default=[],
+        help=(
+            "Dataset contract to export (repeatable). Defaults to the two "
+            "published BEIR contracts."
+        ),
+    )
     args = parser.parse_args()
 
     try:
-        payload = build_payload(args.run_dir)
+        payload = build_payload(
+            args.run_dir,
+            args.dataset or DEFAULT_DATASETS,
+        )
         rendered_json = render_json(payload)
         rendered_csv = render_csv(payload)
     except (OSError, ValueError) as error:

@@ -1,0 +1,1079 @@
+{
+  "datasets": [
+    {
+      "aggregate": {
+        "candidate_absent_top100": 1,
+        "candidate_partition_reconciles": true,
+        "candidate_present_top100": 42,
+        "categories": {
+          "depth_recoverable_101_1000": 0,
+          "reachable_top10": 40,
+          "reranker_reachable_11_100": 2,
+          "residual_miss_top1000": 1
+        },
+        "dataset": "trec_dl_2019",
+        "dataset_id": "msmarco-passage/trec-dl-2019/judged",
+        "partition_covers_all_queries": true,
+        "partition_sum": 43,
+        "positive_qrel_count": 2501,
+        "query_count": 43,
+        "relevance_threshold": 2,
+        "reranked_candidate_set_mismatches": 0
+      },
+      "dataset": "trec_dl_2019",
+      "dataset_id": "msmarco-passage/trec-dl-2019/judged",
+      "input_binding": {
+        "bm25_run": {
+          "bytes": 1593888,
+          "expected_depth": 1000,
+          "path": "trec_dl_2019_bm25.tsv",
+          "sha256": "19f1befb601bafebe363fc97ab770ff8debd34288a41c0b526a584735a1b093c"
+        },
+        "candidate_cutoff": 100,
+        "first_stage_depth": 1000,
+        "qrels": {
+          "canonicalization": "No header or BOM; query_id and document_id converted to strings; relevance converted to a base-10 integer; tuples sorted lexicographically by query_id, document_id, relevance; UTF-8 tab-separated fields; every row, including the last, ends with LF",
+          "dataset_id": "msmarco-passage/trec-dl-2019/judged",
+          "ir_datasets_version": "0.6.1",
+          "row_count": 9260,
+          "sha256": "a5847a267e8fbf7b10f6997cf2b43d0a8217ed89bda0c494fd01ccd7c6673743"
+        },
+        "relevance_threshold": 2,
+        "reranked_run": {
+          "bytes": 213774,
+          "expected_depth": 100,
+          "path": "trec_dl_2019_bm25_ce.tsv",
+          "sha256": "abaa3cb5f5bf13fab6ddd5425cbe0788568f7e62931d3e79381413bae184ac68"
+        }
+      },
+      "records": [
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "3641634",
+          "first_relevant_rank": 4,
+          "positive_qrel_count": 7,
+          "query_id": "1037798",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "5150431",
+          "first_relevant_rank": 4,
+          "positive_qrel_count": 111,
+          "query_id": "104861",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reranker_reachable_11_100",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "4337532",
+          "first_relevant_rank": 33,
+          "positive_qrel_count": 183,
+          "query_id": "1063750",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "3843267",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 11,
+          "query_id": "1103812",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "1334335",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 41,
+          "query_id": "1106007",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8160520",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 28,
+          "query_id": "1110199",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8139256",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 119,
+          "query_id": "1112341",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8128796",
+          "first_relevant_rank": 5,
+          "positive_qrel_count": 25,
+          "query_id": "1113437",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "6704400",
+          "first_relevant_rank": 4,
+          "positive_qrel_count": 12,
+          "query_id": "1114646",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8115440",
+          "first_relevant_rank": 6,
+          "positive_qrel_count": 213,
+          "query_id": "1114819",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8106321",
+          "first_relevant_rank": 8,
+          "positive_qrel_count": 4,
+          "query_id": "1115776",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "1445087",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 83,
+          "query_id": "1117099",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8052624",
+          "first_relevant_rank": 6,
+          "positive_qrel_count": 23,
+          "query_id": "1121402",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8049583",
+          "first_relevant_rank": 4,
+          "positive_qrel_count": 3,
+          "query_id": "1121709",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "2258595",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 120,
+          "query_id": "1124210",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8588219",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 17,
+          "query_id": "1129237",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "5674622",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 219,
+          "query_id": "1133167",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "1494936",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 14,
+          "query_id": "130510",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "985994",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 19,
+          "query_id": "131843",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8434623",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 8,
+          "query_id": "146187",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "7407803",
+          "first_relevant_rank": 3,
+          "positive_qrel_count": 32,
+          "query_id": "148538",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "3288600",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 117,
+          "query_id": "156493",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "1381477",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 200,
+          "query_id": "168216",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "57443",
+          "first_relevant_rank": 3,
+          "positive_qrel_count": 9,
+          "query_id": "182539",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "5534703",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 175,
+          "query_id": "183378",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "residual_miss_top1000",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": null,
+          "first_relevant_rank": null,
+          "positive_qrel_count": 7,
+          "query_id": "19335",
+          "relevant_candidate_present_top100": false
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8273754",
+          "first_relevant_rank": 10,
+          "positive_qrel_count": 11,
+          "query_id": "207786",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "4834547",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 152,
+          "query_id": "264014",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "576629",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 25,
+          "query_id": "359349",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "4704978",
+          "first_relevant_rank": 5,
+          "positive_qrel_count": 7,
+          "query_id": "405717",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reranker_reachable_11_100",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8536121",
+          "first_relevant_rank": 16,
+          "positive_qrel_count": 63,
+          "query_id": "443396",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "5179251",
+          "first_relevant_rank": 3,
+          "positive_qrel_count": 100,
+          "query_id": "451602",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "1868437",
+          "first_relevant_rank": 3,
+          "positive_qrel_count": 41,
+          "query_id": "47923",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "1479542",
+          "first_relevant_rank": 7,
+          "positive_qrel_count": 24,
+          "query_id": "489204",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "1929910",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 24,
+          "query_id": "490595",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8617271",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 34,
+          "query_id": "527433",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "5339620",
+          "first_relevant_rank": 4,
+          "positive_qrel_count": 13,
+          "query_id": "573724",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "6230227",
+          "first_relevant_rank": 7,
+          "positive_qrel_count": 42,
+          "query_id": "833860",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "8651771",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 3,
+          "query_id": "855410",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "2986227",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 31,
+          "query_id": "87181",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "7965004",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 31,
+          "query_id": "87452",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "6923052",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 79,
+          "query_id": "915593",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2019",
+          "first_relevant_doc_id": "3705165",
+          "first_relevant_rank": 5,
+          "positive_qrel_count": 21,
+          "query_id": "962179",
+          "relevant_candidate_present_top100": true
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "candidate_absent_top100": 4,
+        "candidate_partition_reconciles": true,
+        "candidate_present_top100": 50,
+        "categories": {
+          "depth_recoverable_101_1000": 3,
+          "reachable_top10": 47,
+          "reranker_reachable_11_100": 3,
+          "residual_miss_top1000": 1
+        },
+        "dataset": "trec_dl_2020",
+        "dataset_id": "msmarco-passage/trec-dl-2020/judged",
+        "partition_covers_all_queries": true,
+        "partition_sum": 54,
+        "positive_qrel_count": 1666,
+        "query_count": 54,
+        "relevance_threshold": 2,
+        "reranked_candidate_set_mismatches": 0
+      },
+      "dataset": "trec_dl_2020",
+      "dataset_id": "msmarco-passage/trec-dl-2020/judged",
+      "input_binding": {
+        "bm25_run": {
+          "bytes": 2006706,
+          "expected_depth": 1000,
+          "path": "trec_dl_2020_bm25.tsv",
+          "sha256": "67ad11dd8672c011dd8c1f8d68d95fbad6c08d67c4deeb5008cf176d66032a8f"
+        },
+        "candidate_cutoff": 100,
+        "first_stage_depth": 1000,
+        "qrels": {
+          "canonicalization": "No header or BOM; query_id and document_id converted to strings; relevance converted to a base-10 integer; tuples sorted lexicographically by query_id, document_id, relevance; UTF-8 tab-separated fields; every row, including the last, ends with LF",
+          "dataset_id": "msmarco-passage/trec-dl-2020/judged",
+          "ir_datasets_version": "0.6.1",
+          "row_count": 11386,
+          "sha256": "4869f52b6c8adcecd5e55cc5830eb722739415a69d1f296e491aa833bdeba42e"
+        },
+        "relevance_threshold": 2,
+        "reranked_run": {
+          "bytes": 269204,
+          "expected_depth": 100,
+          "path": "trec_dl_2020_bm25_ce.tsv",
+          "sha256": "68ea162d07cff4fd35144f83ce868823cef66d77bd84db437108e6b62b4b7680"
+        }
+      },
+      "records": [
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8726436",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 6,
+          "query_id": "1030303",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "4760912",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 30,
+          "query_id": "1037496",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8696952",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 30,
+          "query_id": "1043135",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "69813",
+          "first_relevant_rank": 9,
+          "positive_qrel_count": 10,
+          "query_id": "1051399",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8680904",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 4,
+          "query_id": "1064670",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8378390",
+          "first_relevant_rank": 5,
+          "positive_qrel_count": 8,
+          "query_id": "1071750",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8201611",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 7,
+          "query_id": "1105792",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8190140",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 18,
+          "query_id": "1106979",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8175412",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 76,
+          "query_id": "1108651",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8165491",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 118,
+          "query_id": "1109707",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reranker_reachable_11_100",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8155912",
+          "first_relevant_rank": 66,
+          "positive_qrel_count": 4,
+          "query_id": "1110678",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "7561115",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 12,
+          "query_id": "1113256",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "depth_recoverable_101_1000",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8111879",
+          "first_relevant_rank": 179,
+          "positive_qrel_count": 3,
+          "query_id": "1115210",
+          "relevant_candidate_present_top100": false
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "depth_recoverable_101_1000",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8100545",
+          "first_relevant_rank": 107,
+          "positive_qrel_count": 6,
+          "query_id": "1116380",
+          "relevant_candidate_present_top100": false
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8053112",
+          "first_relevant_rank": 5,
+          "positive_qrel_count": 3,
+          "query_id": "1121353",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "2019371",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 37,
+          "query_id": "1122767",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8726956",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 13,
+          "query_id": "1127540",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8432050",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 3,
+          "query_id": "1131069",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8318625",
+          "first_relevant_rank": 3,
+          "positive_qrel_count": 72,
+          "query_id": "1132532",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "4274865",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 17,
+          "query_id": "1133579",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8728076",
+          "first_relevant_rank": 5,
+          "positive_qrel_count": 11,
+          "query_id": "1136043",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8724031",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 6,
+          "query_id": "1136047",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "6185711",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 41,
+          "query_id": "1136962",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "1569786",
+          "first_relevant_rank": 5,
+          "positive_qrel_count": 98,
+          "query_id": "118440",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reranker_reachable_11_100",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "451169",
+          "first_relevant_rank": 19,
+          "positive_qrel_count": 69,
+          "query_id": "121171",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8692623",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 9,
+          "query_id": "135802",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "1157249",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 13,
+          "query_id": "141630",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "3301559",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 7,
+          "query_id": "156498",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "4859433",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 12,
+          "query_id": "169208",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8304458",
+          "first_relevant_rank": 5,
+          "positive_qrel_count": 62,
+          "query_id": "174463",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8010561",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 46,
+          "query_id": "23849",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8694161",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 26,
+          "query_id": "258062",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8290314",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 11,
+          "query_id": "324585",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "233946",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 41,
+          "query_id": "330975",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "1650687",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 27,
+          "query_id": "332593",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8528674",
+          "first_relevant_rank": 6,
+          "positive_qrel_count": 3,
+          "query_id": "336901",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8630614",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 14,
+          "query_id": "390360",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "978353",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 98,
+          "query_id": "405163",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8746197",
+          "first_relevant_rank": 8,
+          "positive_qrel_count": 6,
+          "query_id": "42255",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "2546001",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 29,
+          "query_id": "47210",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "depth_recoverable_101_1000",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "1447386",
+          "first_relevant_rank": 124,
+          "positive_qrel_count": 84,
+          "query_id": "555530",
+          "relevant_candidate_present_top100": false
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "7491704",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 67,
+          "query_id": "583468",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "418508",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 121,
+          "query_id": "640502",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "6680964",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 23,
+          "query_id": "67316",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "residual_miss_top1000",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": null,
+          "first_relevant_rank": null,
+          "positive_qrel_count": 18,
+          "query_id": "673670",
+          "relevant_candidate_present_top100": false
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "4330679",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 16,
+          "query_id": "701453",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "2666444",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 10,
+          "query_id": "730539",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "52155",
+          "first_relevant_rank": 2,
+          "positive_qrel_count": 7,
+          "query_id": "768208",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "4888926",
+          "first_relevant_rank": 5,
+          "positive_qrel_count": 39,
+          "query_id": "877809",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "8816622",
+          "first_relevant_rank": 3,
+          "positive_qrel_count": 4,
+          "query_id": "911232",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "5177082",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 69,
+          "query_id": "914916",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reranker_reachable_11_100",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "4207807",
+          "first_relevant_rank": 30,
+          "positive_qrel_count": 48,
+          "query_id": "938400",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "4800890",
+          "first_relevant_rank": 7,
+          "positive_qrel_count": 36,
+          "query_id": "940547",
+          "relevant_candidate_present_top100": true
+        },
+        {
+          "candidate_set_matches": true,
+          "category": "reachable_top10",
+          "dataset": "trec_dl_2020",
+          "first_relevant_doc_id": "4518222",
+          "first_relevant_rank": 1,
+          "positive_qrel_count": 18,
+          "query_id": "997622",
+          "relevant_candidate_present_top100": true
+        }
+      ]
+    }
+  ],
+  "record_count": 97,
+  "record_key": [
+    "dataset",
+    "query_id"
+  ],
+  "schema": "ecir-query-audit-records.v1",
+  "verifier_version": "0.2.2"
+}

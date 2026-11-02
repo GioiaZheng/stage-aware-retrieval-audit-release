@@ -94,7 +94,11 @@ def main() -> None:
     os.environ["IR_DATASETS_HOME"] = str(cache)
 
     try:
-        from recompute_stage_categories import DATASETS, evaluate
+        from recompute_stage_categories import (
+            DEFAULT_DATASETS,
+            DATASETS,
+            evaluate,
+        )
     except ModuleNotFoundError as error:
         if error.name == "ir_datasets":
             raise SystemExit(
@@ -105,7 +109,7 @@ def main() -> None:
     if ":" not in args.query:
         parser.error("--query must use DATASET:QID")
     dataset_name, qid = args.query.split(":", 1)
-    if dataset_name not in DATASETS or not qid:
+    if dataset_name not in DEFAULT_DATASETS or not qid:
         parser.error("--query must name a supported dataset and non-empty query ID")
 
     run_dir = extracted / "runs"
@@ -115,7 +119,7 @@ def main() -> None:
             run_dir,
             {qid} if name == dataset_name else None,
         )
-        for name in DATASETS
+        for name in DEFAULT_DATASETS
     ]
     result = {
         "schema": "ecir-usability-quickstart.v1",

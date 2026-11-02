@@ -1,0 +1,43 @@
+{
+  "results": [
+    {
+      "candidate_absent_top100": 1,
+      "candidate_partition_reconciles": true,
+      "candidate_present_top100": 42,
+      "categories": {
+        "depth_recoverable_101_1000": 0,
+        "reachable_top10": 40,
+        "reranker_reachable_11_100": 2,
+        "residual_miss_top1000": 1
+      },
+      "dataset": "trec_dl_2019",
+      "dataset_id": "msmarco-passage/trec-dl-2019/judged",
+      "partition_covers_all_queries": true,
+      "partition_sum": 43,
+      "positive_qrel_count": 2501,
+      "query_count": 43,
+      "relevance_threshold": 2,
+      "reranked_candidate_set_mismatches": 0
+    },
+    {
+      "candidate_absent_top100": 4,
+      "candidate_partition_reconciles": true,
+      "candidate_present_top100": 50,
+      "categories": {
+        "depth_recoverable_101_1000": 3,
+        "reachable_top10": 47,
+        "reranker_reachable_11_100": 3,
+        "residual_miss_top1000": 1
+      },
+      "dataset": "trec_dl_2020",
+      "dataset_id": "msmarco-passage/trec-dl-2020/judged",
+      "partition_covers_all_queries": true,
+      "partition_sum": 54,
+      "positive_qrel_count": 1666,
+      "query_count": 54,
+      "relevance_threshold": 2,
+      "reranked_candidate_set_mismatches": 0
+    }
+  ],
+  "schema": "ecir-stage-category-recomputation.v1"
+}

@@ -21,6 +21,14 @@ query-level audit. Its release tag resolves to code commit
 accepts all three archives after extraction as documented in
 `verification/QUICKSTART.md`.
 
+The `v0.2.2` TREC-DL audit uses only the first asset in the table. Release tag
+`v2.1-trec-dl-baselines` resolves to code commit
+`af10885ea8b0b712cb49146c6db06a430af36105`; the bundle manifest associates
+the four TREC-DL runs with experiment commit
+`0362a48bb4d000a93f5af5c26a4de934db37e74f`. Before use, the complete ZIP is
+checked against the pinned digest
+`e7001a943beb1b1a220ef4a58fae445569725682dc0dbbcb0d9300473a360aa3`.
+
 The upstream repository's software is licensed under MIT, but the three ZIP
 files do not contain an asset-specific license and their GitHub Release pages
 do not state one. The MIT software license is therefore not treated here as an
@@ -35,9 +43,13 @@ model weights, caches, and machine-local manifests.
 
 ## Benchmark resources
 
-The verification scripts use `ir_datasets` to obtain public NFCorpus and
-SciFact resources. No copy of those resources is committed here. Users are
-responsible for observing the applicable upstream dataset terms.
+The verification scripts use `ir_datasets` to obtain public NFCorpus,
+SciFact, and the judged TREC-DL 2019 and 2020 resources. The exact TREC-DL
+dataset identifiers are `msmarco-passage/trec-dl-2019/judged` and
+`msmarco-passage/trec-dl-2020/judged`; the audit treats judgments of level 2 or
+higher as positive. No copy of those corpora, queries, or qrels is committed
+here. Users are responsible for observing the applicable upstream dataset
+terms.
 
 The [official NFCorpus Terms of Use](https://www.cl.uni-heidelberg.de/statnlpgroup/nfcorpus/#terms-of-use)
 state that NFCorpus is free to use for academic purposes and direct other uses
@@ -49,8 +61,8 @@ The browser's worked example loads SciFact query text and a relevant-document
 title and abstract excerpt at runtime. Under the
 [SciFact license](https://github.com/allenai/scifact/blob/a5254a1bf108726a1704d8e191b8a7f2225a029f/LICENSE.md),
 claims and evidence annotations are CC BY 4.0, while corpus abstracts from
-S2ORC are ODC-By 1.0. The release-candidate application source includes this
-attribution beside the example. The deployed response-free interface presents
+S2ORC are ODC-By 1.0. The application source includes this attribution beside
+the example. The deployed response-free interface presents
 the same attribution and includes the corresponding source-license metadata in
 any downloaded verification export that retains the example text. That text
 remains subject to the source terms and is not relicensed by this repository.
@@ -61,3 +73,7 @@ The Apache-2.0 and CC BY 4.0 licenses in this repository cover only the
 original material identified in this repository. They do not relicense the
 external release asset, `ir_datasets`, NFCorpus, SciFact, benchmark judgments,
 or any other downloaded dependency.
+
+In particular, this repository does not redistribute the TREC-DL run ZIP,
+MS MARCO corpus, TREC-DL queries, or TREC-DL qrels. The retained audit outputs
+bind to those external inputs through identifiers and SHA-256 values only.

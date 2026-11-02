@@ -12,6 +12,7 @@ import unittest
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 
@@ -20,8 +21,13 @@ VERIFICATION = ROOT / "verification"
 sys.path.insert(0, str(VERIFICATION))
 
 from run_usability_quickstart import BUNDLE_SHA256, BUNDLE_URL  # noqa: E402
-from export_query_audit import records_for_category  # noqa: E402
+from export_query_audit import (  # noqa: E402
+    VERIFIER_VERSION,
+    build_payload,
+    records_for_category,
+)
 import recompute_stage_categories as stage_categories  # noqa: E402
+import reproduce_trec_release as reproduce_trec  # noqa: E402
 import run_usability_quickstart as quickstart  # noqa: E402
 
 
@@ -183,11 +189,130 @@ class ReleaseCandidateTests(unittest.TestCase):
             )
         )
 
+    def test_trec_query_audit_exports_reconcile(self) -> None:
+        aggregate_payload = json.loads(
+            (VERIFICATION / "trec-category-recomputation.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        payload = json.loads(
+            (VERIFICATION / "trec-query-audit-records.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        with (VERIFICATION / "trec-query-audit-records.csv").open(
+            encoding="utf-8", newline=""
+        ) as handle:
+            csv_rows = list(csv.DictReader(handle))
+
+        self.assertEqual(
+            reproduce_trec.TREC_BUNDLE_URL,
+            "https://github.com/GioiaZheng/msmarco-genqa/releases/download/"
+            "v2.1-trec-dl-baselines/trec-dl-baselines-v1.zip",
+        )
+        self.assertEqual(
+            reproduce_trec.TREC_BUNDLE_SHA256,
+            "e7001a943beb1b1a220ef4a58fae445569725682dc0dbbcb0d9300473a360aa3",
+        )
+        self.assertEqual(payload["schema"], "ecir-query-audit-records.v1")
+        self.assertEqual(payload["verifier_version"], "0.2.2")
+        self.assertEqual(payload["record_count"], 97)
+        self.assertEqual(len(csv_rows), 97)
+
+        expected_categories = {
+            "trec_dl_2019": {
+                "reachable_top10": 40,
+                "reranker_reachable_11_100": 2,
+                "depth_recoverable_101_1000": 0,
+                "residual_miss_top1000": 1,
+            },
+            "trec_dl_2020": {
+                "reachable_top10": 47,
+                "reranker_reachable_11_100": 3,
+                "depth_recoverable_101_1000": 3,
+                "residual_miss_top1000": 1,
+            },
+        }
+        aggregate_by_name = {
+            result["dataset"]: result
+            for result in aggregate_payload["results"]
+        }
+        self.assertEqual(set(aggregate_by_name), set(expected_categories))
+        self.assertEqual(
+            [dataset["dataset"] for dataset in payload["datasets"]],
+            list(expected_categories),
+        )
+
+        json_rows = []
+        for dataset in payload["datasets"]:
+            name = dataset["dataset"]
+            records = dataset["records"]
+            aggregate = aggregate_by_name[name]
+            observed = Counter(row["category"] for row in records)
+            observed_with_zeros = {
+                category: observed[category]
+                for category in expected_categories[name]
+            }
+            self.assertEqual(observed_with_zeros, expected_categories[name])
+            self.assertEqual(aggregate["categories"], expected_categories[name])
+            self.assertEqual(dataset["aggregate"], aggregate)
+            self.assertEqual(len(records), aggregate["query_count"])
+            self.assertEqual(aggregate["relevance_threshold"], 2)
+            self.assertEqual(
+                dataset["input_binding"]["relevance_threshold"], 2
+            )
+            self.assertTrue(all(row["candidate_set_matches"] for row in records))
+            json_rows.extend(records)
+
+        keys = {(row["dataset"], row["query_id"]) for row in json_rows}
+        self.assertEqual(len(json_rows), 97)
+        self.assertEqual(len(keys), 97)
+        for json_row, csv_row in zip(json_rows, csv_rows, strict=True):
+            self.assertEqual(csv_row["dataset"], json_row["dataset"])
+            self.assertEqual(csv_row["query_id"], json_row["query_id"])
+            self.assertEqual(csv_row["category"], json_row["category"])
+            self.assertEqual(
+                csv_row["first_relevant_rank"],
+                ""
+                if json_row["first_relevant_rank"] is None
+                else str(json_row["first_relevant_rank"]),
+            )
+            self.assertEqual(
+                csv_row["first_relevant_doc_id"],
+                ""
+                if json_row["first_relevant_doc_id"] is None
+                else json_row["first_relevant_doc_id"],
+            )
+            self.assertEqual(
+                csv_row["positive_qrel_count"],
+                str(json_row["positive_qrel_count"]),
+            )
+            self.assertEqual(
+                csv_row["relevant_candidate_present_top100"],
+                str(json_row["relevant_candidate_present_top100"]).lower(),
+            )
+            self.assertEqual(
+                csv_row["candidate_set_matches"],
+                str(json_row["candidate_set_matches"]).lower(),
+            )
+
+    def test_verifier_version_matches_release(self) -> None:
+        self.assertEqual(VERIFIER_VERSION, "0.2.2")
+
+    def test_query_export_rejects_empty_dataset_selection(self) -> None:
+        with self.assertRaisesRegex(ValueError, "at least one dataset"):
+            build_payload(Path("unused"), [])
+
+    def test_query_export_rejects_unknown_dataset(self) -> None:
+        with self.assertRaisesRegex(ValueError, "unknown datasets"):
+            build_payload(Path("unused"), ["not_registered"])
+
     def test_release_metadata_is_present(self) -> None:
         repository_url = (
             "https://github.com/GioiaZheng/stage-aware-retrieval-audit-release"
         )
         browser_url = "https://stage-aware-retrieval-audit.streamlit.app/"
+        release_url = f"{repository_url}/releases/tag/v0.2.2"
         required = [
             "LICENSE",
             "LICENSE-DOCUMENTATION.md",
@@ -203,8 +328,9 @@ class ReleaseCandidateTests(unittest.TestCase):
         self.assertIn("cff-version: 1.2.0", citation)
         self.assertIn("family-names: \"Zheng\"", citation)
         self.assertIn("license: Apache-2.0", citation)
+        self.assertIn("version: 0.2.2", citation)
         self.assertIn(f'repository-code: "{repository_url}"', citation)
-        self.assertIn(f'url: "{browser_url}"', citation)
+        self.assertIn(f'url: "{release_url}"', citation)
 
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         quality_url = f"{repository_url}/actions/workflows/quality.yml"
@@ -218,6 +344,9 @@ class ReleaseCandidateTests(unittest.TestCase):
         )
         self.assertIn("query-audit-records.json", result_license)
         self.assertIn("query-audit-records.csv", result_license)
+        self.assertIn("trec-category-recomputation.json", result_license)
+        self.assertIn("trec-query-audit-records.json", result_license)
+        self.assertIn("trec-query-audit-records.csv", result_license)
         self.assertIn("does not relicense identifiers", result_license)
 
     def test_scifact_attribution_is_visible(self) -> None:
@@ -500,6 +629,72 @@ class StageCategoryContractTests(unittest.TestCase):
     def test_category_rejects_rank_beyond_declared_depth(self) -> None:
         with self.assertRaisesRegex(ValueError, "outside 1--1000"):
             stage_categories.category(1001)
+
+    def test_registered_dataset_thresholds_and_defaults(self) -> None:
+        self.assertEqual(
+            stage_categories.DEFAULT_DATASETS,
+            ("nfcorpus", "scifact"),
+        )
+        self.assertEqual(
+            stage_categories.DATASETS["nfcorpus"]["relevance_threshold"],
+            1,
+        )
+        self.assertEqual(
+            stage_categories.DATASETS["scifact"]["relevance_threshold"],
+            1,
+        )
+        for name in ("trec_dl_2019", "trec_dl_2020"):
+            with self.subTest(dataset=name):
+                spec = stage_categories.DATASETS[name]
+                self.assertEqual(spec["relevance_threshold"], 2)
+                self.assertEqual(spec["bm25_depth"], 1000)
+                self.assertEqual(spec["reranked_depth"], 100)
+
+    def test_positive_qrels_applies_declared_threshold(self) -> None:
+        dataset = SimpleNamespace(
+            qrels_iter=lambda: iter(
+                [
+                    SimpleNamespace(query_id="1", doc_id="d1", relevance=1),
+                    SimpleNamespace(query_id="1", doc_id="d2", relevance=2),
+                    SimpleNamespace(query_id="2", doc_id="d3", relevance=0),
+                ]
+            )
+        )
+        with patch.object(
+            stage_categories.ir_datasets, "load", return_value=dataset
+        ):
+            observed = stage_categories.positive_qrels("example", 2)
+
+        self.assertEqual(observed, {"1": {"d2"}, "2": set()})
+
+    def test_positive_qrels_rejects_non_positive_threshold(self) -> None:
+        with self.assertRaisesRegex(ValueError, "positive integer"):
+            stage_categories.positive_qrels("example", 0)
+
+    def test_trec_evaluation_uses_manifest_threshold(self) -> None:
+        bm25 = {"1": [(1, "d1")]}
+        reranked = {"1": [(1, "d1")]}
+        qrels = {"1": {"d1"}}
+        with (
+            patch.object(
+                stage_categories,
+                "read_run",
+                side_effect=[bm25, reranked],
+            ),
+            patch.object(
+                stage_categories,
+                "positive_qrels",
+                return_value=qrels,
+            ) as positive_qrels,
+        ):
+            result = stage_categories.evaluate(
+                "trec_dl_2019", Path("unused")
+            )
+
+        positive_qrels.assert_called_once_with(
+            "msmarco-passage/trec-dl-2019/judged", 2
+        )
+        self.assertEqual(result["relevance_threshold"], 2)
 
 
 if __name__ == "__main__":

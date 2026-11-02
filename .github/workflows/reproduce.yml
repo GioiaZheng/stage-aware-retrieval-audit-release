@@ -34,5 +34,11 @@ jobs:
       - name: Compare with retained reference
         run: cmp integration-work/quickstart-result.json verification/quickstart-reference.json
 
+      - name: Reproduce retained TREC-DL outputs
+        run: |
+          python verification/reproduce_trec_release.py \
+            --work-dir integration-work-trec \
+            --output-dir integration-work-trec/generated
+
       - name: Run release-candidate invariants
         run: python -m unittest discover -s tests -v

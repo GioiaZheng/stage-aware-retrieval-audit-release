@@ -7,7 +7,9 @@ and the Markdown reports under `verification/`, together with the original
 machine-readable verification results under `verification/`, are licensed
 under the Creative Commons Attribution 4.0 International license (CC BY 4.0).
 The covered result files explicitly include the aggregate JSON outputs and
-`query-audit-records.json` / `query-audit-records.csv`.
+`query-audit-records.json` / `query-audit-records.csv`. They also include the
+separate TREC-DL result files `trec-category-recomputation.json`,
+`trec-query-audit-records.json`, and `trec-query-audit-records.csv`.
 
 The canonical license deed and legal code are available at:
 

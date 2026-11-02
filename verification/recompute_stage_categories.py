@@ -17,6 +17,7 @@ DATASETS = {
         "reranked": "beir_nfcorpus_bm25_ce.tsv",
         "bm25_depth": 1000,
         "reranked_depth": 100,
+        "relevance_threshold": 1,
     },
     "scifact": {
         "dataset_id": "beir/scifact/test",
@@ -24,8 +25,29 @@ DATASETS = {
         "reranked": "beir_scifact_bm25_ce.tsv",
         "bm25_depth": 1000,
         "reranked_depth": 100,
+        "relevance_threshold": 1,
+    },
+    "trec_dl_2019": {
+        "dataset_id": "msmarco-passage/trec-dl-2019/judged",
+        "bm25": "trec_dl_2019_bm25.tsv",
+        "reranked": "trec_dl_2019_bm25_ce.tsv",
+        "bm25_depth": 1000,
+        "reranked_depth": 100,
+        "relevance_threshold": 2,
+    },
+    "trec_dl_2020": {
+        "dataset_id": "msmarco-passage/trec-dl-2020/judged",
+        "bm25": "trec_dl_2020_bm25.tsv",
+        "reranked": "trec_dl_2020_bm25_ce.tsv",
+        "bm25_depth": 1000,
+        "reranked_depth": 100,
+        "relevance_threshold": 2,
     },
 }
+
+# Preserve the v0.2.1 BEIR quick-start and web workflow unless callers
+# explicitly select another registered dataset.
+DEFAULT_DATASETS = ("nfcorpus", "scifact")
 
 
 def read_run(
@@ -62,14 +84,18 @@ def read_run(
     return dict(rows)
 
 
-def positive_qrels(dataset_id: str) -> dict[str, set[str]]:
+def positive_qrels(
+    dataset_id: str, relevance_threshold: int
+) -> dict[str, set[str]]:
+    if relevance_threshold < 1:
+        raise ValueError("relevance threshold must be a positive integer")
     qrels: dict[str, set[str]] = defaultdict(set)
     for qrel in ir_datasets.load(dataset_id).qrels_iter():
         qid = str(qrel.query_id)
         # Touch every qrels topic so that a topic with no positive judgment is
         # not silently removed from the audit population.
         qrels[qid]
-        if qrel.relevance >= 1:
+        if qrel.relevance >= relevance_threshold:
             qrels[qid].add(str(qrel.doc_id))
     return dict(qrels)
 
@@ -96,6 +122,7 @@ def evaluate(
     include_query_records: bool = False,
 ) -> dict[str, object]:
     spec = DATASETS[name]
+    relevance_threshold = int(spec["relevance_threshold"])
     bm25 = read_run(
         run_dir / str(spec["bm25"]), expected_depth=int(spec["bm25_depth"])
     )
@@ -103,7 +130,7 @@ def evaluate(
         run_dir / str(spec["reranked"]),
         expected_depth=int(spec["reranked_depth"]),
     )
-    qrels = positive_qrels(str(spec["dataset_id"]))
+    qrels = positive_qrels(str(spec["dataset_id"]), relevance_threshold)
 
     qrels_topics = set(qrels)
     bm25_topics = set(bm25)
@@ -124,7 +151,7 @@ def evaluate(
     if no_positive_qrels:
         raise ValueError(
             f"{name}: {len(no_positive_qrels)} qrels topics have no positive "
-            "judgment at relevance >= 1"
+            f"judgment at relevance >= {relevance_threshold}"
         )
 
     candidate_set_mismatch_qids = []
@@ -200,7 +227,7 @@ def evaluate(
     result: dict[str, object] = {
         "dataset": name,
         "dataset_id": spec["dataset_id"],
-        "relevance_threshold": 1,
+        "relevance_threshold": relevance_threshold,
         "query_count": query_count,
         "positive_qrel_count": sum(len(qrels[qid]) for qid in qrels_topics),
         "categories": {
@@ -239,6 +266,16 @@ def main() -> None:
     parser.add_argument("--run-dir", required=True, type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument(
+        "--dataset",
+        action="append",
+        choices=tuple(DATASETS),
+        default=[],
+        help=(
+            "Dataset contract to evaluate (repeatable). Defaults to the two "
+            "published BEIR contracts."
+        ),
+    )
+    parser.add_argument(
         "--query",
         action="append",
         default=[],
@@ -247,6 +284,8 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    selected_datasets = list(dict.fromkeys(args.dataset or DEFAULT_DATASETS))
+
     requested_by_dataset: dict[str, set[str]] = defaultdict(set)
     for value in args.query:
         if ":" not in value:
@@ -254,6 +293,10 @@ def main() -> None:
         dataset_name, qid = value.split(":", 1)
         if dataset_name not in DATASETS or not qid:
             parser.error(f"invalid --query value {value!r}")
+        if dataset_name not in selected_datasets:
+            parser.error(
+                f"query dataset {dataset_name!r} is not selected by --dataset"
+            )
         requested_by_dataset[dataset_name].add(qid)
 
     try:
@@ -261,7 +304,7 @@ def main() -> None:
             "schema": "ecir-stage-category-recomputation.v1",
             "results": [
                 evaluate(name, args.run_dir, requested_by_dataset.get(name))
-                for name in DATASETS
+                for name in selected_datasets
             ],
         }
     except (OSError, ValueError) as error:

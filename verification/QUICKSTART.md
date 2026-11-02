@@ -103,6 +103,84 @@ directory, run:
   --csv-output verification\query-audit-records.csv
 ```
 
-The retained file identifiers and schema are documented in
+The retained BEIR file identifiers and schema are documented in
 [`QUERY-AUDIT.md`](QUERY-AUDIT.md). The original aggregate JSON schema and
 retained hashes remain unchanged.
+
+## TREC-DL v0.2.2 retained-output regeneration
+
+The TREC-DL audit is a separate, explicit workflow. It does not change the
+default BEIR datasets used by the one-command Quick Start. The recommended
+release check downloads the pinned archive, verifies its SHA-256, regenerates
+all three TREC-DL outputs in an isolated directory, and requires them to match
+the retained files byte for byte:
+
+```powershell
+.\.venv-audit\Scripts\python.exe verification\reproduce_trec_release.py `
+  --work-dir trec-release-work `
+  --output-dir trec-release-work\generated
+```
+
+On Linux or macOS, use `.venv-audit/bin/python` with the same arguments.
+
+For manual inspection, the helper uses this pinned external asset without
+adding it to the repository:
+
+```text
+https://github.com/GioiaZheng/msmarco-genqa/releases/download/v2.1-trec-dl-baselines/trec-dl-baselines-v1.zip
+```
+
+Its required SHA-256 is:
+
+```text
+e7001a943beb1b1a220ef4a58fae445569725682dc0dbbcb0d9300473a360aa3
+```
+
+On Windows PowerShell, download, verify, and extract it into a clean work
+directory:
+
+```powershell
+New-Item -ItemType Directory -Path trec-work | Out-Null
+Invoke-WebRequest `
+  -Uri "https://github.com/GioiaZheng/msmarco-genqa/releases/download/v2.1-trec-dl-baselines/trec-dl-baselines-v1.zip" `
+  -OutFile trec-work\trec-dl-baselines-v1.zip
+$trecDigest = (Get-FileHash -Algorithm SHA256 `
+  trec-work\trec-dl-baselines-v1.zip).Hash.ToLower()
+if ($trecDigest -ne "e7001a943beb1b1a220ef4a58fae445569725682dc0dbbcb0d9300473a360aa3") {
+  throw "TREC-DL bundle SHA-256 mismatch"
+}
+Expand-Archive trec-work\trec-dl-baselines-v1.zip `
+  -DestinationPath trec-work\extracted
+```
+
+Then run the category and per-query exporters with both judged-topic
+contracts selected explicitly:
+
+```powershell
+.\.venv-audit\Scripts\python.exe verification\recompute_stage_categories.py `
+  --run-dir trec-work\extracted\runs `
+  --dataset trec_dl_2019 `
+  --dataset trec_dl_2020 `
+  --output trec-work\trec-category-recomputation.json
+
+.\.venv-audit\Scripts\python.exe verification\export_query_audit.py `
+  --run-dir trec-work\extracted\runs `
+  --dataset trec_dl_2019 `
+  --dataset trec_dl_2020 `
+  --json-output trec-work\trec-query-audit-records.json `
+  --csv-output trec-work\trec-query-audit-records.csv
+```
+
+On Linux or macOS, use the equivalent `.venv-audit/bin/python` commands shown
+in `QUERY-AUDIT.md` after verifying the ZIP with `sha256sum` and extracting it
+under `trec-work/extracted`.
+
+The aggregate output must report 43 TREC-DL 2019 topics with counts
+`40 / 2 / 0 / 1` and 54 TREC-DL 2020 topics with counts `47 / 3 / 3 / 1`, in
+the documented category order. Both candidate-set mismatch counts must be zero,
+and the JSON and CSV exports must each contain 97 records. The expected output
+sizes and SHA-256 values are recorded in `QUERY-AUDIT.md`.
+
+Neither this workflow nor the repository redistributes the MS MARCO corpus,
+TREC-DL qrels, or the ranked-run ZIP. Their source and licensing boundary are
+documented in `THIRD_PARTY.md`.

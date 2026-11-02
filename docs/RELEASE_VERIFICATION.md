@@ -1,5 +1,7 @@
 # Release Verification
 
+## v0.2.1 BEIR verification record
+
 Date: 2026-10-21
 
 The complete documented workflow was executed from a clean release-candidate
@@ -70,5 +72,44 @@ A new end-to-end Quick Start used an empty work directory, downloaded the
 pinned archive and public qrels, and produced a result byte-identical to
 `verification/quickstart-reference.json`, including its retained SHA-256 above.
 Thus the stricter contract rejects invalid inputs without changing the fixed
-323-query NFCorpus or 300-query SciFact outputs. This recheck describes local,
-unreleased changes until a new commit and release identifier are assigned.
+323-query NFCorpus or 300-query SciFact outputs. This paragraph records the
+pre-release status at the time of the recheck. The BEIR files and their
+retained identifiers are preserved unchanged in later versions.
+
+## v0.2.2 TREC-DL pre-publication verification (2026-11-02)
+
+On 2026-11-02, the category evaluator and query exporter were run explicitly
+for `trec_dl_2019` and `trec_dl_2020` against the externally hosted
+`trec-dl-baselines-v1.zip`. The downloaded archive matched its pinned SHA-256:
+
+```text
+e7001a943beb1b1a220ef4a58fae445569725682dc0dbbcb0d9300473a360aa3
+```
+
+Using Python 3.12.2 and `ir_datasets==0.6.1`, the audit loaded the judged
+TREC-DL 2019 and 2020 topics, used relevance threshold 2, and produced 43 and
+54 records, respectively. The category counts in display order
+`reachable_top10`, `reranker_reachable_11_100`,
+`depth_recoverable_101_1000`, and `residual_miss_top1000` were:
+
+- TREC-DL 2019: 40, 2, 0, and 1;
+- TREC-DL 2020: 47, 3, 3, and 1.
+
+Both partitions reconciled to their full judged-topic populations, all 97
+records received exactly one category, and the reranked candidate-set mismatch
+count was zero for both datasets. The complete local suite passed 29 tests,
+including the associated category and export regressions.
+
+The three separate canonical outputs are:
+
+| File | Rows | Bytes | SHA-256 |
+|---|---:|---:|---|
+| `verification/trec-category-recomputation.json` | 2 datasets | 1,296 | `92f84492022e03623a30fa85230a1a978ab85cabdd21871a8ab1669ec5dc64de` |
+| `verification/trec-query-audit-records.json` | 97 | 37,390 | `73c799bb2d00ac78f53ffc1d482ea03d7cf3dd75e09649a9a727dae031106675` |
+| `verification/trec-query-audit-records.csv` | 97 | 5,971 | `ae8c6626f4faabc6724c6038a6969fcba0ffa42f5a4dd1ec215098adcdcd0516` |
+
+This dated check is the pre-publication evidence for the retained `v0.2.2`
+outputs. Public identity and access are established separately by the Git tag,
+GitHub Release, and permanent archive metadata. These checks do not redistribute
+or regenerate the corpus, qrels, or ranked-run ZIP, and they do not establish
+semantic relevance beyond the benchmark judgments.
