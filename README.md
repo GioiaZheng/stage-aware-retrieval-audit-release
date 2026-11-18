@@ -57,13 +57,16 @@ regeneration workflow are documented in
 
 ## Browser interface
 
-The response-free browser interface is available at
-<https://stage-aware-retrieval-audit.streamlit.app/>. Its source is
-`verification/web_app.py`. The page reruns extraction, qrels loading, category
-computation, and the fixed-query assignment. It contains no response fields
-and its optional download contains only the machine-readable verification
-result. The author-run deployment checks and their evidence boundary are
-documented in
+The browser interface is deployed at
+<https://stage-aware-retrieval-audit.streamlit.app/>. At the 18 November 2026
+access check, that URL redirected unauthenticated visitors to Streamlit's
+sign-in flow, so anonymous browser access is not currently established. The
+command-line workflow above remains available without a Streamlit account.
+The interface source is `verification/web_app.py`. The page reruns extraction,
+qrels loading, category computation, and the fixed-query assignment. It
+contains no response fields and its optional download contains only the
+machine-readable verification result. The author-run deployment checks and
+their evidence boundary are documented in
 [`docs/TECHNICAL_ACCESS_VERIFICATION.md`](docs/TECHNICAL_ACCESS_VERIFICATION.md).
 The deployed interface retains the `v0.2.1` BEIR scope; it does not expose the
 separate TREC-DL outputs added in `v0.2.2`. Those outputs are available through
