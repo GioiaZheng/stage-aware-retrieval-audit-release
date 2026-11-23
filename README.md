@@ -8,6 +8,15 @@ is available to a reranker restricted to the top 100 candidates.
 
 [![Quality checks](https://github.com/GioiaZheng/stage-aware-retrieval-audit-release/actions/workflows/quality.yml/badge.svg)](https://github.com/GioiaZheng/stage-aware-retrieval-audit-release/actions/workflows/quality.yml)
 
+Reader entry points: [v0.2.2 release](https://github.com/GioiaZheng/stage-aware-retrieval-audit-release/releases/tag/v0.2.2) ·
+[retained SciFact example](verification/quickstart-reference.json) ·
+[query-level records](verification/query-audit-records.json) ·
+[browser interface](https://stage-aware-retrieval-audit.streamlit.app/)
+
+The retained example assigns `scifact:13` to
+`depth_recoverable_101_1000`: its first judged-relevant document is at rank
+170 and is therefore outside the reranker's top-100 candidate set.
+
 The current evidence covers the public BEIR NFCorpus and SciFact test sets and
 the judged topics from TREC Deep Learning 2019 and 2020. BEIR uses positive
 judgments at relevance level 1 or above; the graded TREC-DL audit uses level 2
@@ -58,10 +67,13 @@ regeneration workflow are documented in
 ## Browser interface
 
 The browser interface is deployed at
-<https://stage-aware-retrieval-audit.streamlit.app/>. At the 18 November 2026
-access check, that URL redirected unauthenticated visitors to Streamlit's
-sign-in flow, so anonymous browser access is not currently established. The
-command-line workflow above remains available without a Streamlit account.
+<https://stage-aware-retrieval-audit.streamlit.app/>. In an unauthenticated
+visitor check on 23 November 2026, the page loaded and started the public audit
+without requiring a Streamlit account. That run did not complete because the
+external NFCorpus data host timed out, so public page access is established but
+live recomputation still depends on upstream data availability. The retained
+example above and the command-line workflow remain available when the hosted
+run cannot fetch an upstream resource.
 The interface source is `verification/web_app.py`. The page reruns extraction,
 qrels loading, category computation, and the fixed-query assignment. It
 contains no response fields and its optional download contains only the
